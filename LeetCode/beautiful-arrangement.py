@@ -23,7 +23,7 @@ class Solution:
 
         #Find first permutation (ie n = 3 : a = [1, 2, 3])
         a = [i for i in range(1, n+1)]
-        
+
         all_perms = self.find_all_perms(a)
         for perm in all_perms:
             isBeautiful = True
@@ -44,3 +44,30 @@ class Solution:
             for perm in self.find_all_perms(a[1:]):
                 for i in range(len(a)):
                     yield perm[:i] + a[0:1] + perm[i:]
+
+'''
+Better solution:
+---------------------------------------------------------------------------------------------------
+Create all possible permutations of numbers from input n. But as we create the permutations early stop
+if any of the two conditions 1. or 2. fail.
+
+Time Complexity: O(k) - since we are finding only permutations k where k is expected number of beautiful arrangements
+Space Complexity: O(k) - since we are storing those permutations which are beautiful
+'''
+class Solution:
+    def countArrangement(self, n: int) -> int:
+        
+        self.res = 0
+        nums = [i for i in range(1, n+1)]
+        
+        def dfs(nums: list, i: int = 1):
+            if i == n+1: 
+                self.res += 1
+                return
+            
+            for j, num in enumerate(nums):
+                if not(num % i and i % num):
+                    dfs(nums[:j] + nums[j+1:], i+1)
+            
+        dfs(nums)
+        return self.res
