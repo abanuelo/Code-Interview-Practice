@@ -19,6 +19,9 @@ This solution is fast and will check the two strings covering the insert, delete
     one deletion
 4. If the length of s and t are the same, then there may exist an exchange. To test the change we keep a exchange_count variable
     to ensure that only one character has been exchanged
+
+Time Complexity: O(n) where n is the length of s or t (depending on the scenario)
+Space Complexity: O(1)
 '''
 class Solution:
     def isOneEditDistance(self, s: str, t: str) -> bool:
