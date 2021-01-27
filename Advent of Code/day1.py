@@ -1,3 +1,5 @@
+#Armando Banuelos 1/26/2021
+
 import os
 
 #Store numbers from input text into here
