@@ -47,3 +47,47 @@ class Solution:
                 total_fruit = fruit_count
         
         return total_fruit
+
+'''
+    Note that this solution was devised on 1.29.2021
+    Solution: To make minor modifications to the attempt above, essentially, what we needed to do was
+    to ensure that we start from the next index of the second type instead of using for i in range to iterate
+    through all elements
+
+    Time-Complexity: O(n) where n is the size of tree
+    Space-Complexity: O(1) using minimal space to only store index starts (i and next_start)
+'''
+class Solution:
+    def totalFruit(self, tree: List[int]) -> int:
+        total_fruit = 0
+        fruit_types = []
+        i = 0
+        next_start = 0
+        
+        if len(tree) < 3:
+            return len(tree)
+        
+        while next_start < len(tree)-1:
+            fruit_count = 1
+            fruit_types.append(tree[i])
+            for j in range(i+1, len(tree)):
+                if len(fruit_types) == 1 and tree[j] in fruit_types:
+                    fruit_count += 1
+                elif len(fruit_types) == 1 and tree[j] not in fruit_types:
+                    fruit_types.append(tree[j])
+                    fruit_count += 1
+                    next_start = j
+                else:
+                    if tree[j] in fruit_types:
+                        fruit_count += 1
+                    else:
+                        break
+                if (j == len(tree)-1):
+                    next_start = j
+            
+            fruit_types = []
+            if fruit_count > total_fruit:
+                total_fruit = fruit_count
+            i = next_start
+        return total_fruit
+                
