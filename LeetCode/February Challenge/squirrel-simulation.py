@@ -47,3 +47,27 @@ class Solution:
             if n[0] <= height-1 and n[1] <= width-1:
                 min_nut_dist += (abs(tree[0] - n[0]) + abs(tree[1] - n[1])) + (abs(n[0] - tree[0]) + abs(n[1] - tree[1])) # we multiply by 2 to get distance to and from nut
         return min_nut_dist
+
+'''
+    Solution here was to not only calculate the distance from squirrel to nearest nut but also the
+    distance to the tree. Here is an updated solution.
+
+    Time complexity: O(n)
+    Space Complexity: O(1)
+'''
+class Solution:
+    def minDistance(self, height: int, width: int, tree: List[int], squirrel: List[int], nuts: List[List[int]]) -> int:
+         #Idea is to maybe use dijkstra's algorithm to find the shortest path acorn
+        min_nut_dist = float('-inf')
+        all_distance = 0
+        #First is to find the closest nut to the squirrel and go to it
+
+        for n in nuts:
+            all_distance += 2 * (abs(tree[0] - n[0]) + abs(tree[1] - n[1]))
+
+            total_distance_squirrel_to_nut = abs(squirrel[0] - n[0]) + abs(squirrel[1] - n[1])
+            total_distance_nut_to_tree = abs(n[0] - tree[0]) + abs(n[1] - tree[1])
+
+            min_nut_dist = max(min_nut_dist, total_distance_nut_to_tree - total_distance_squirrel_to_nut)
+    
+        return all_distance - min_nut_dist
